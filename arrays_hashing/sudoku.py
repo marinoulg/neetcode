@@ -1,3 +1,5 @@
+from string import ascii_lowercase
+
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
 
@@ -33,22 +35,71 @@ class Solution:
 
         columns = get_columns(board)
 
+        def printing_board():
+            for j in range(len(board)):
+                line = board[j]
+                print(line)
+            print()
 
+        def replacing_points_by_IDs(board):
+            count=0
+            for j in range(len(board)):
+                line = board[j]
+                for i in range(len(line)):
+                    if line[i] == '.':
+                        if count in range(26):
+                            line[i] = ascii_lowercase[count]
+                            c = 0
+                        elif count in range(26,52):
+                            line[i] = ascii_lowercase[c]*2
+                            c += 1
+                            cc = 0
+                        else:
+                            line[i] = ascii_lowercase[cc]*3
+                            cc += 1
+                        count+=1
+            return board
+
+        printing_board()
+        replacing_points_by_IDs(board)
+
+        # print()
         # j'ai un 1er square, il faut trouver les autres now
+        board_copy = []
         square = []
         for j in range(len(board)):
             line = board[j]
+            line_copy = line.copy()
             print(line)
             for i in range(len(line)):
                 # square = []
-                if i<=2 :
-                    if j <=2:
+                if i in range(3) :
+                    if j in range(3):
                         square.append(line[i])
+                        # print(line[i])
+                        line_copy.remove(line_copy[i])
+                        # board_copy.append(line_copy)
                     elif j in range(2,6):
                         square.append(line[i])
+                        line_copy.remove(line_copy[i])
+                        # board_copy.append(line_copy)
+                        # board_copy.remove(board_copy[j][i])
                     else:
                         square.append(line[i])
+                        line_copy.remove(line_copy[i])
+            board_copy.append(line_copy)
+                        # board_copy.remove(board_copy[j][i])
 
+                # elif i in range(4,7):
+                #     print(line[j])
+                #     if j <=2:
+                #         square.append(line[i])
+                #     elif j in range(2,6):
+                #         square.append(line[i])
+                #     else:
+                #         square.append(line[i])
+
+        print()
         first_square_col = []
         start = 0
         for i in range(len(square)):
@@ -57,17 +108,8 @@ class Solution:
                 start = i
         first_square_col.append(square[start:])
         print(first_square_col[1:])
-            # print()
-        # print(square)
-
-        # square = []
-        # for j in range(3, len(board)):
-        #     line = board[j]
-        #     print(line)
-        #     for i in range(2, len(line)):
-        #         if 2<i<=4 and 2<j<=4:
-        #             square.append(line[i])
-        # print(square)
+        # print()
+        # print("bc",board_copy)
 
 
 
