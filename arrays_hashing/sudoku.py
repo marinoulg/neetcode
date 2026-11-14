@@ -1,4 +1,5 @@
 from string import ascii_lowercase
+from pprint import pprint
 
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
@@ -11,20 +12,16 @@ class Solution:
                     else : count[string] += 1
             return count
 
-        def check_array(board):
-            # initially: array --> line = board[i]
-            # but can work for squares of sudoku, too
-
-            for i in range(len(board)):
+        def build_dict(array):
+            total_counts = []
+            for i in range(len(array)):
                 count = {}
-                array = board[i]
-                for elem in range(1,10):
-                    count = is_in_array(array, str(elem), count)
-                print(count)
-                # print()
-                if max(list(count.values())) != 1:
-                    return False
-                else: return True
+                # print(array[i])
+                for num in range(1,10):
+                    count = (is_in_array(array[i], str(num), count))
+                total_counts.append(count)
+
+            return(total_counts)
 
         def get_columns(board):
             columns = []
@@ -92,41 +89,34 @@ class Solution:
                 all_agg_squares.append(agg_squares(col3)[i])
             return all_agg_squares
 
+        def check_array(check_lines):
+            for item in check_lines:
+                for v in item.values():
+                    if v >1:
+                        return(False)
+            else:
+                return(True)
 
-        columns = get_columns(board)
-        printing_board()
-        replacing_points_by_IDs(board)
+        def result(board):
+            print("initial board")
+            printing_board()
 
-        print()
-        printing_board()
+            columns = get_columns(board)
+            all_agg_squares = all_aggs(board)
 
-        print()
-        all_agg_squares = all_aggs(board)
-        for agg_sq in all_agg_squares:
-            print(agg_sq)
+            check_lines = (build_dict(board))
+            check_cols = (build_dict(columns))
+            check_squares = (build_dict(all_agg_squares))
 
-
-
+            if (check_array(check_lines)):
+                if (check_array(check_cols)):
+                    if (check_array(check_squares)):
+                        return True
+            else: return False
 
 
         # ----- Result -----
-        print()
-        print("Result")
-        print("lines:", check_array(board)) # for lines
-        print()
-        print("columns:",check_array(columns)) # for columns
-        print()
-        print("all_agg_squares:",check_array(all_agg_squares)) # for squares
-        print()
-
-
-
-
-
-
-
-
-
+        print(result(board))
 
 board =[
     ["1","2",".",".","3",".",".",".","."],
