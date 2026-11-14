@@ -114,7 +114,7 @@ class Solution:
 
 
         # ----- Result -----
-        print(result(board))
+        return (result(board))
 
 board =[
     ["1","2",".",".","3",".",".",".","."],
