@@ -108,10 +108,8 @@ class Solution:
             check_cols = (build_dict(columns))
             check_squares = (build_dict(all_agg_squares))
 
-            if (check_array(check_lines)):
-                if (check_array(check_cols)):
-                    if (check_array(check_squares)):
-                        return True
+            if (check_array(check_lines)) == True and (check_array(check_cols)) == True and (check_array(check_squares)) == True:
+                return True
             else: return False
 
 
@@ -130,4 +128,14 @@ board =[
     [".",".",".",".","8",".",".","7","9"]
     ]
 
-Solution().isValidSudoku(board)
+board2 =[["1","2",".",".","3",".",".",".","."],
+ ["4",".",".","5",".",".",".",".","."],
+ [".","9","1",".",".",".",".",".","3"],
+ ["5",".",".",".","6",".",".",".","4"],
+ [".",".",".","8",".","3",".",".","5"],
+ ["7",".",".",".","2",".",".",".","6"],
+ [".",".",".",".",".",".","2",".","."],
+ [".",".",".","4","1","9",".",".","8"],
+ [".",".",".",".","8",".",".","7","9"]]
+
+Solution().isValidSudoku(board2)
