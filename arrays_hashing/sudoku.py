@@ -38,10 +38,27 @@ class Solution:
         square = []
         for j in range(len(board)):
             line = board[j]
+            print(line)
             for i in range(len(line)):
-                if i<=2 and j <=2:
-                    square.append(line[i])
-        print(square)
+                # square = []
+                if i<=2 :
+                    if j <=2:
+                        square.append(line[i])
+                    elif j in range(2,6):
+                        square.append(line[i])
+                    else:
+                        square.append(line[i])
+
+        first_square_col = []
+        start = 0
+        for i in range(len(square)):
+            if i%9 == 0:
+                first_square_col.append(square[start:i])
+                start = i
+        first_square_col.append(square[start:])
+        print(first_square_col[1:])
+            # print()
+        # print(square)
 
         # square = []
         # for j in range(3, len(board)):
