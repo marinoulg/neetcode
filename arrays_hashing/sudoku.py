@@ -20,6 +20,8 @@ class Solution:
                 array = board[i]
                 for elem in range(1,10):
                     count = is_in_array(array, str(elem), count)
+                print(count)
+                # print()
                 if max(list(count.values())) != 1:
                     return False
                 else: return True
@@ -32,8 +34,6 @@ class Solution:
                     tmp.append(board[j][i])
                 columns.append(tmp)
             return columns
-
-        columns = get_columns(board)
 
         def printing_board():
             for j in range(len(board)):
@@ -60,67 +60,64 @@ class Solution:
                         count+=1
             return board
 
+        def create_cols(board):
+            col1 = []
+            col2 = []
+            col3 = []
+            for j in range(len(board)):
+                line = board[j]
+                for _ in range(len(line)):
+                    col1.append(','.join(line[:3]))
+                    col2.append(','.join(line[3:6]))
+                    col3.append(','.join(line[6:]))
+                    break
+            return col1, col2, col3
+
+        def agg_squares(col):
+            agg_squares_per_col = []
+            start = 0
+            for mini_array in range(len(col)):
+                if mini_array%3 == 0:
+                    agg_squares_per_col.append(','.join(col[start:mini_array]).split(","))
+                    start = mini_array
+            agg_squares_per_col.append(','.join(col[start:]).split(","))
+            return (agg_squares_per_col[1:])
+
+        def all_aggs(board):
+            col1, col2, col3 = create_cols(board)
+            all_agg_squares = agg_squares(col1)
+            for i in range(3):
+                all_agg_squares.append(agg_squares(col2)[i])
+            for i in range(3):
+                all_agg_squares.append(agg_squares(col3)[i])
+            return all_agg_squares
+
+
+        columns = get_columns(board)
         printing_board()
         replacing_points_by_IDs(board)
 
-        # print()
-        # j'ai un 1er square, il faut trouver les autres now
-        board_copy = []
-        square = []
-        for j in range(len(board)):
-            line = board[j]
-            line_copy = line.copy()
-            print(line)
-            for i in range(len(line)):
-                # square = []
-                if i in range(3) :
-                    if j in range(3):
-                        square.append(line[i])
-                        # print(line[i])
-                        line_copy.remove(line_copy[i])
-                        # board_copy.append(line_copy)
-                    elif j in range(2,6):
-                        square.append(line[i])
-                        line_copy.remove(line_copy[i])
-                        # board_copy.append(line_copy)
-                        # board_copy.remove(board_copy[j][i])
-                    else:
-                        square.append(line[i])
-                        line_copy.remove(line_copy[i])
-            board_copy.append(line_copy)
-                        # board_copy.remove(board_copy[j][i])
-
-                # elif i in range(4,7):
-                #     print(line[j])
-                #     if j <=2:
-                #         square.append(line[i])
-                #     elif j in range(2,6):
-                #         square.append(line[i])
-                #     else:
-                #         square.append(line[i])
+        print()
+        printing_board()
 
         print()
-        first_square_col = []
-        start = 0
-        for i in range(len(square)):
-            if i%9 == 0:
-                first_square_col.append(square[start:i])
-                start = i
-        first_square_col.append(square[start:])
-        print(first_square_col[1:])
-        # print()
-        # print("bc",board_copy)
-
+        all_agg_squares = all_aggs(board)
+        for agg_sq in all_agg_squares:
+            print(agg_sq)
 
 
 
 
 
         # ----- Result -----
-
-        print(check_array(board)) # for lines
-        print(check_array(columns)) # for columns
-        # print(check_array(squares)) # for squares
+        print()
+        print("Result")
+        print("lines:", check_array(board)) # for lines
+        print()
+        print("columns:",check_array(columns)) # for columns
+        print()
+        print("all_agg_squares:",check_array(all_agg_squares)) # for squares
+        print()
 
 
 
