@@ -14,7 +14,7 @@ class Solution:
         # for
         return new
 
-nums = [1,2,4,6,5,12,10,34]
+nums = [1,2,4,6,5,12,10,34,2]
 (Solution().productExceptSelf(nums))
 print()
 
@@ -28,27 +28,29 @@ print(neww)
 
 """
 nums = [1,2,4,6,5,12]
+len(nums) = 6
 idxs = [2, 8, 24, 30, 60, 12]
 
 [2880, 1440, 720, 480, 576, 240]
 """
 # one = [idx1 * idx3 *idx5] = 8*30*12=2880
 # two = [idx2 * idx4] = 24*60=1440
-# three = [idx3 * idx5 * si dernier de la liste --> idx0] = 30*12*2=720
-# four = [idx4 * idx1] = 2*8*30=480
-# five = [idx5 * idx0 * idx2] = 12*2*24=576
+# three = [idx3 * idx5 * idx0] = 30*12*2=720
+# four = [idx4 * idx1] = 60*6=480
+# five = [idx5 * idx2 * idx0] = 12*24*2=576
 # six = [idx1 * idx3] = 8*30=240
 
 
 """
-nums = [1,2,4,6,5,12, 10]
-idxs = [2, 8, 24, 30, 60, 12]
+nums = [1,2,4,6,5,12,10]
+idxs = [2, 8, 24, 30, 60, 120, 10]
+len(nums) = 7
 
 [28800, 14400, 7200, 4800, 5760, 2400, 2880]
 """
-# one = [idx1 * idx3 *idx5] = 8*30*120=2880
-# two = [idx2 * idx4] = 24*60=1440
-# three = [idx3 * idx5 * idx0 * nums[-1]] = 30*12*2*10=7200
+# one = [idx1 * idx3 * idx5] = 8*30*120=2880
+# two = [idx2 * idx4 * idx6] = 24*60*10=14400
+# three = [idx3 * idx5 * idx0 * nums[-1]] = 30*12*2*10=7200 bc len impair
 # four = [idx4 * idx6 * idx1] = 60*10*8=480
 # five = [idx5 * idx0 * idx2] = 120*24*2=5760
 # six = [idx6 * idx1 * idx3] = 10*8*30=2400
@@ -56,6 +58,7 @@ idxs = [2, 8, 24, 30, 60, 12]
 
 """
 nums = [1,2,4,6,5,12,10,34]
+len(nums) = 8
 idxs = [2, 8, 24, 30, 60, 120, 340, 34]
 
 [979200, 489600, 244800, 163200, 195840, 81600, 97920, 28800]
@@ -68,3 +71,19 @@ idxs = [2, 8, 24, 30, 60, 120, 340, 34]
 # six = [idx6 * idx1 * idx3] = 340*8*30=81600
 # seven = [idx7 * idx2 * idx4 * idx0] = 34*24*60*2=97920
 # eight = [idx1 * idx3 * idx5] = 30*120*8=28800
+
+"""
+nums = [1,2,4,6,5,12,10,34,2]
+len(nums) = 9
+idxs = [2, 8, 24, 30, 60, 120, 340, 68, 2]
+
+[1958400, 979200, 489600, 326400, 391680, 163200, 195840, 57600, 979200]
+"""
+# one = [idx1 * idx3 * idx5 * idx7] = 8*30*120*68=1958400
+# two = [idx2 * idx4 * idx6 * idx8] = 24*60*340*2=979200
+# three = [idx3 * idx5 * idx7 * idx0] = 30*120*68*2=489600
+# four = [idx4 * idx6 * idx8 * idx1] = 60*340*2*8=326400
+# five = [idx5 * idx7 * idx2 * idx0] = 120*68*24*2=391680
+# six = [idx6 * idx1 * idx3 * idx0] = 340*8*30*2=163200
+# seven = [idx7 * idx2 * idx4 * idx0] = 68*24*60*2=195840
+# eight = [idx1 * idx3 * idx5 * nums[7]] = 8*30*120*34=979200
