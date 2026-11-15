@@ -1,6 +1,6 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        print(s)
+        # print(s)
 
         def pair(s):
             rounds = {}
@@ -48,46 +48,76 @@ class Solution:
 
         rounds = pair(s)
         r = list(rounds.values())
+        # print(r)
 
-        if r[-1] == (0,0,0):
-            idx=0
-            i = 0
-            tmp, idx, nb_zeros = closed_rounds(r, idx)
-            all_rounds = [tmp]
+        all_parentheses = []
+        all_brackets = []
+        all_curly = []
+        for tupl in r:
+            all_parentheses.append(tupl[0])
+            all_brackets.append(tupl[1])
+            all_curly.append(tupl[2])
 
-            while i != nb_zeros+1:
+        # print(all_parentheses)
+        # print(all_brackets)
+        # print(all_curly)
+
+        def check_all_in_order(all_p):
+            for elem in all_p:
+                # print(elem)
+                if elem <0:
+                    return False
+            else: return True
+
+        if check_all_in_order(all_parentheses) and check_all_in_order(all_curly) and check_all_in_order(all_brackets):
+            if r[-1] == (0,0,0):
+                idx=0
+                i = 0
                 tmp, idx, nb_zeros = closed_rounds(r, idx)
-                all_rounds.append(tmp)
-                i += 1
+                all_rounds = [tmp]
 
-            print(rounds)
-            print()
-            for array in all_rounds:
-                print(array)
-                for elem in array:
-                    if elem == (0,0,0):
-                        array.remove(elem)
-                print(array)
-                if len(array) != 1:
-                    alternate_r = array[::-1]
-                    if alternate_r != array:
-                        return False
-                else:
-                    for elem in array[0]:
-                        if elem == -1:
+                while i != nb_zeros+1:
+                    tmp, idx, nb_zeros = closed_rounds(r, idx)
+                    all_rounds.append(tmp)
+                    i += 1
+
+                # print(rounds)
+                # print()
+                for array in all_rounds:
+                    # print(array)
+                    for elem in array:
+                        if elem == (0,0,0):
+                            array.remove(elem)
+                    print(array)
+                    if len(array) != 1:
+                        alternate_r = array[::-1]
+                        if alternate_r != array:
                             return False
+                    else:
+                        for elem in array[0]:
+                            if elem == -1:
+                                return False
+                print(all_rounds)
 
-                print()
-            return True
+                    # print()
+                return True
 
+            else: return False
+            # return True
         else: return False
 
 
-# s = "([{}])"
+
+
+
+
+s = "([{}])"
 # s = "[(])"
 # s="()[()]{}"
 # s="(){}}{"
-s="(}{)"
+# s="(}{)"
+s="{[()()]([])}"
+
 
 
 print(Solution().isValid(s))
