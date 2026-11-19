@@ -181,62 +181,76 @@ class Solution:
                 idx -= 1
                 print(list_s)
 
-            return ("".join(list_s))
+            s = ("".join(list_s))
+
+            return s
 
 
-        #  how to know how many times to do it?
-        s = clean_up_consecutives(s)
-        s = clean_up_consecutives(s)
-        print("post cleanup:",s)
+        def untangle_closed_open(s):
+            """
+            TO DO
+            """
+            #  how to know how many times to do it?
+            s = clean_up_consecutives(s)
+            s = clean_up_consecutives(s)
+
+            print("post cleanup:",s)
+
+
+            return s
 
 
 
-        """
-        works if imbriqués les uns dans les autres
-        """
+        def imbriqués(s):
+            """
+            works if imbriqués les uns dans les autres
+            """
+            s = untangle_closed_open(s)
 
-        opened = []
-        closed = []
+            opened = []
+            closed = []
 
-        # idx_op = []
-        # idx_clos = []
+            # idx_op = []
+            # idx_clos = []
 
-        for idx in range(len(s)):
-            elem = s[idx]
-            if elem in ["[", "{", "("]:
-                opened.append(elem)
-                # idx_op.append(idx)
-            elif elem in ["]", ")", "}"]:
-                closed.append(elem)
-                # idx_clos.append(idx)
+            for idx in range(len(s)):
+                elem = s[idx]
+                if elem in ["[", "{", "("]:
+                    opened.append(elem)
+                    # idx_op.append(idx)
+                elif elem in ["]", ")", "}"]:
+                    closed.append(elem)
+                    # idx_clos.append(idx)
 
-        print("open:", opened)
-        print("closed:", closed)
-        parallel_parenth = ")"
-        parallel_bracket = "]"
-        parallel_curly = "}"
+            print("open:", opened)
+            print("closed:", closed)
+            parallel_parenth = ")"
+            parallel_bracket = "]"
+            parallel_curly = "}"
 
-        # print("idx_op:", idx_op)
-        # print("idx_clos:", idx_clos)
+            # print("idx_op:", idx_op)
+            # print("idx_clos:", idx_clos)
 
-        if len(opened) != len(closed):
-            return False
-
-        for op, clos, idx in zip(opened, closed[::-1], range(len(opened))):
-            print("index —", idx, end=": \n")
-            print(op, clos)
-            if op == "(" and clos != parallel_parenth:
-                print("a")
+            if len(opened) != len(closed):
                 return False
-            if op == "[" and clos != parallel_bracket:
-                print("b")
-                return False
-            if op == "{" and clos != parallel_curly:
-                print("c")
-                return False
-            print()
 
-        return True
+            for op, clos, idx in zip(opened, closed[::-1], range(len(opened))):
+                print("index —", idx, end=": \n")
+                print(op, clos)
+                if op == "(" and clos != parallel_parenth:
+                    print("a")
+                    return False
+                if op == "[" and clos != parallel_bracket:
+                    print("b")
+                    return False
+                if op == "{" and clos != parallel_curly:
+                    print("c")
+                    return False
+                print()
+
+            return True
+
+        return imbriqués(s)
 
 
 
@@ -249,12 +263,10 @@ class Solution:
 # s = "[(])" #should_False
 # s="()[()]{}" #should_true
 # s="(){}}{" #should_False
-# s="(}{)" #should_False
+s="(}{)" #should_False
 
-s="{[()()]([])}" #should_true
+# s="{[()()]([])}" #should_true
 
 
 
 print(Solution().isValid(s))
-
-# print((0,-1)>0)
