@@ -63,7 +63,7 @@ class Solution:
                 print("impair:", len(nums))
 
                 if len(nums) == 1:
-                    res = nums
+                    res = 1
 
                 elif len(nums) == 3:
                     one = idx[1]
@@ -126,9 +126,47 @@ def not_effective(nums):
     print(neww)
     return neww
 
-nums=[2,2,0,2,2,0,0,2,2]
+nums=[2,2,0,1]
 # nums=[2,4,-2,1,2,-1,4,1,3,-3,-1,2,1,2,1,-3,1,-1,1,3,3,-2,-2,3,-3,-1,1,-2,-4,-2]
 
 # not_effective(nums)
 # print("solution")
-print(Solution().productExceptSelf(nums))
+# print(Solution().productExceptSelf(nums))
+
+# nums = [1,2,4,6,5]
+for i in range(len(nums)):
+    prefix = nums[:i]
+    suffix = nums[i+1:]
+    print(prefix, suffix, end=": ")
+
+    if 0 in prefix or 0 in suffix:
+        print(0)
+    # elif 1 in prefix: prefix.remove(1)
+    # elif 1 in suffix: suffix.remove(1)
+    else: print()
+
+
+
+
+    # tmp = 1
+    # if prefix == []:
+    #     for i in range(len(suffix)-2):
+    #         elem = suffix[i]
+    #         next_elem = suffix[i+1]
+    #         tmp *= elem * next_elem
+    #         i += 2
+    #         print(tmp)
+    # elif suffix == []:
+    #     for i in range(len(prefix)-2):
+    #         elem = prefix[i]
+    #         next_elem = prefix[i+1]
+    #         tmp = elem * next_elem
+    #         i += 2
+    #         print(tmp)
+    # else:
+    #     print()
+    #     next
+
+
+    # for pre in zip(prefis
+    #     if len(prefix
