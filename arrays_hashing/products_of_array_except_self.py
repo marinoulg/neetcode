@@ -1,6 +1,4 @@
 from math import prod
-from pprint import pprint
-
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
