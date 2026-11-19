@@ -89,7 +89,7 @@ class Solution:
             if len(opened) != len(closed):
                 return False
 
-            for op, clos, idx in zip(opened, closed[::-1], range(len(opened))):
+            for op, clos in zip(opened, closed[::-1]):
                 # print("index —", idx, end=": ")
                 # print(op, clos)
                 if op == "(" and clos != parallel_parenth:
