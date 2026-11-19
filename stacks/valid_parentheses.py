@@ -179,7 +179,7 @@ class Solution:
                 print(idx, list_s[idx], "--> ", end="")
                 list_s.pop(idx)
                 idx -= 1
-                print(list_s)
+                print("".join(list_s))
 
             s = ("".join(list_s))
 
@@ -190,9 +190,14 @@ class Solution:
             """
             TO DO
             """
-            #  how to know how many times to do it?
+
             s = clean_up_consecutives(s)
-            s = clean_up_consecutives(s)
+
+
+            """if imbriqués(s) == False:
+                s = clean_up_consecutives(s)
+                if imbriqués(s) == False:
+                    return False"""
 
             print("post cleanup:",s)
 
@@ -224,6 +229,7 @@ class Solution:
 
             print("open:", opened)
             print("closed:", closed)
+
             parallel_parenth = ")"
             parallel_bracket = "]"
             parallel_curly = "}"
@@ -235,7 +241,7 @@ class Solution:
                 return False
 
             for op, clos, idx in zip(opened, closed[::-1], range(len(opened))):
-                print("index —", idx, end=": \n")
+                print("index —", idx, end=": ")
                 print(op, clos)
                 if op == "(" and clos != parallel_parenth:
                     print("a")
@@ -250,7 +256,16 @@ class Solution:
 
             return True
 
-        return imbriqués(s)
+        #  how to know how many times to do the cleanup? --> solved below
+        if imbriqués(s) == False:
+            print("here:", s)
+            s = clean_up_consecutives(s)
+            if imbriqués(s) == False:
+                return False
+            else: return True
+        else:
+            return imbriqués(s)
+
 
 
 
@@ -261,8 +276,8 @@ class Solution:
 
 # s = "([{}])" #should_true
 # s = "[(])" #should_False
-# s="()[()]{}" #should_true
-# s="(){}}{" #should_False
+# s="({()[()][{()}]})" #should_true
+s="(){}}{" #should_False
 s="(}{)" #should_False
 
 # s="{[()()]([])}" #should_true
