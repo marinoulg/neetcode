@@ -185,7 +185,6 @@ class Solution:
 
             return s
 
-
         def untangle_closed_open(s):
             """
             TO DO
@@ -193,18 +192,15 @@ class Solution:
 
             s = clean_up_consecutives(s)
 
-
             """if imbriqués(s) == False:
                 s = clean_up_consecutives(s)
                 if imbriqués(s) == False:
                     return False"""
 
-            print("post cleanup:",s)
+            print("\npost cleanup:",s)
 
 
             return s
-
-
 
         def imbriqués(s):
             """
@@ -220,7 +216,7 @@ class Solution:
 
             for idx in range(len(s)):
                 elem = s[idx]
-                print(elem, ": ", end = "")
+                print(elem, ": ", end = "\n")
                 if elem in ["[", "{", "("]:
                     opened.append(elem)
                     # idx_op.append(idx)
@@ -258,7 +254,6 @@ class Solution:
                 if op == "{" and clos != parallel_curly:
                     print("c")
                     return False
-                print()
 
             return True
 
@@ -283,7 +278,7 @@ class Solution:
 # s = "([{}])" #should_true
 # s = "[(])" #should_False
 # s="({()[()][{()}]})" #should_true
-s="(){}}{" #should_False
+# s="(){}}{" #should_False
 s="(}{)" #should_False
 
 # s="{[()()]([])}" #should_true
