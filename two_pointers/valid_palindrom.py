@@ -3,7 +3,6 @@ from string import punctuation
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         s = s.replace(" ","").lower()
-
         for elem in s:
             if elem in punctuation:
                 s = s.replace(elem,"")
