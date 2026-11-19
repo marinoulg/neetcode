@@ -220,12 +220,18 @@ class Solution:
 
             for idx in range(len(s)):
                 elem = s[idx]
+                print(elem, ": ", end = "")
                 if elem in ["[", "{", "("]:
                     opened.append(elem)
                     # idx_op.append(idx)
-                elif elem in ["]", ")", "}"]:
+                if elem in ["]", ")", "}"]:
                     closed.append(elem)
                     # idx_clos.append(idx)
+                # print("lenght opened:",len(opened), end=" — ")
+                # print("lenght closed:", len(closed))
+                if len(closed) > len(opened):
+                    # here, does not return False because } closes when ) should close, and then { opens, and then ) closes
+                    return False
 
             print("open:", opened)
             print("closed:", closed)
