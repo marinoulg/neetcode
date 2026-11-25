@@ -27,56 +27,44 @@ class Solution:
             # print()
             return tok_integers
 
-        def make_calculations(tok_integers, i, first):
-            if tok_integers[i-1] == "+":
-                # print("res", first + tok_integers[i])
-                res = first + tok_integers[i]
+        def make_calculations(tok_integers):
+            copy_tmp = []
+            for elem in tok_integers:
+                if elem in ["+", "-", "/", "*"]:
+                    right = copy_tmp.pop(-1)
+                    left = copy_tmp.pop(-1)
+                    if elem == "+":
+                        res = (left+right)
+                        print(f"{left}+{right}")
+                        copy_tmp.append(res)
+                    elif elem == "-":
+                        res = (left/right)
+                        print(f"{left}-{right}")
+                        copy_tmp.append(res)
+                    elif elem == "*":
+                        res = (left*right)
+                        print(f"{left}*{right}")
+                        copy_tmp.append(res)
+                    elif elem == "/":
+                        res = (left/right)
+                        print(f"{left}/{right}")
+                        copy_tmp.append(res)
+                elif isinstance(elem, int):
+                    copy_tmp.append(elem)
 
-            elif tok_integers[i-1] == "*":
-                # print("res", first * tok_integers[i])
-                res = first * tok_integers[i]
-
-            elif tok_integers[i-1] == "-":
-                # print("res", first - tok_integers[i])
-                res = first - tok_integers[i]
-
-            elif tok_integers[i-1] == "/":
-                # print("res", first / tok_integers[i])
-                res = first / tok_integers[i]
-
+            res = copy_tmp[0]
+            print("res:", res)
             return res
 
         def result(tokens):
-            """
-            ⚠️⚠️⚠️
-            TO BE UPDATED
+            return int(make_calculations(turning_ints(turning_elems_in_order(tokens))))
 
-            https://en.wikipedia.org/wiki/Reverse_Polish_notation
-
-            it works when operators are in the middle of the array
-                --> when you need to operate from left to right without parentheses
-
-            it does NOT work when:
-                - operators are all at the end
-                - operators are all around
-            """
-
-            tok = turning_elems_in_order(tokens)
-            tok_integers = turning_ints(tok)
-
-            first = tok_integers[0]
-            for i in range(1, len(tok_integers)):
-                if i%2==0:
-                    if i == 2:
-                        res = make_calculations(tok_integers, i, first)
-
-                    else:
-                        res = make_calculations(tok_integers, i, res)
-
-            return (res)
         return result(tokens)
 
 
-tokens = ["1","2","+","3","*","4","-"]
+# tokens = ["1","2","+","3","*","4","-"]
+# tokens=["4","13","5","/","+"]
+
+tokens=["4","13","5","/","+"]
 
 print(Solution().evalRPN(tokens))
