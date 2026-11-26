@@ -54,12 +54,6 @@ class Solution:
                     target_achieved += 1
             return target_achieved
 
-        # def arrive_at_destination_yet(target, position, speed):
-
-
-            target_achieved = 0
-            tmp_speed = []
-
             for pos, spe in zip(position, speed):
                 print(pos, spe)
                 depassement = pos+spe-target
@@ -82,25 +76,6 @@ class Solution:
                     else:
                         print("here")
                         next
-
-
-                    # if (pos+(test*spe)-target)/(spe) == test:
-                    #     print(former, "is the same speed as", (pos, spe), "which is", test)
-
-
-            # for letter in ordering_cars:
-            #     pos, spe = ordering_cars[letter]
-            #     print(pos, spe, "(target-pos):",(target-pos)/spe)
-            #     if pos >= target: target_achieved += 1
-            #     tmp_speed.append(((target-pos)/spe))
-
-            # for i in range(len(pos)):
-            #     elem = pos[i]
-            #     # spe = speed[i]
-            #     if elem >= target:
-            #         target_achieved += 1
-            #     # tmp_speed.append((target-elem))
-            return target_achieved, tmp_speed
 
         def result_one_round(sorted_cars, ordering_cars, round):
             ordering_cars = one_round_passes(sorted_cars, ordering_cars)
