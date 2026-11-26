@@ -214,7 +214,7 @@ print(Solution().carFleet(target=20,
 position=[6,2,17],
 speed=[3,9,2]))
 print()
-# #True should be 2
+# should be 2
 
 print(Solution().carFleet(target=10,
 position=[8,3,7,4,6,5],
