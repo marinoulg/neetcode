@@ -47,7 +47,16 @@ class Solution:
 
             return ordering_cars
 
-        def arrive_at_destination_yet(target, position, speed):
+        def arrive_at_destination_yet(pos, target):
+            target_achieved = 0
+            for elem in (pos):
+                if elem >= target:
+                    target_achieved += 1
+            return target_achieved
+
+        # def arrive_at_destination_yet(target, position, speed):
+
+
             target_achieved = 0
             tmp_speed = []
 
@@ -105,7 +114,7 @@ class Solution:
         round = 0
         sorted_cars, ordering_cars = ordering_cars_closer_to_target(position, speed)
         print(f"round {round}: (target = {target}) {position} - {speed}")
-        target_achieved, tmp_speed = arrive_at_destination_yet(target, position, speed)
+        target_achieved = arrive_at_destination_yet(position, target)
         # print("tmp_speed:", tmp_speed)
         # print("ordering_cars:", ordering_cars)
 
@@ -120,7 +129,7 @@ class Solution:
             sorted_cars, ordering_cars = ordering_cars_closer_to_target(pos, speed)
             print(f"round {round}: {pos} - {speed}")
 
-            target_achieved, tmp_speed = arrive_at_destination_yet(target, ordering_cars)
+            target_achieved = arrive_at_destination_yet(pos, target)
             # print("tmp_speed:", tmp_speed)
             # print()
             if len(pos) != len(set(pos)):
@@ -207,8 +216,8 @@ speed=[3,9,2]))
 print()
 # #True should be 2
 
-# print(Solution().carFleet(target=10,
-# position=[8,3,7,4,6,5],
-# speed=[4,4,4,4,4,4]))
-# #True should be 6
-# print()
+print(Solution().carFleet(target=10,
+position=[8,3,7,4,6,5],
+speed=[4,4,4,4,4,4]))
+#True should be 6
+print()
