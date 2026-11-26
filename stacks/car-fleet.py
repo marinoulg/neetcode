@@ -47,12 +47,51 @@ class Solution:
 
             return ordering_cars
 
-        def arrive_at_destination_yet(pos, target):
+        def arrive_at_destination_yet(target, position, speed):
             target_achieved = 0
-            for elem in (pos):
-                if elem >= target:
-                    target_achieved += 1
-            return target_achieved
+            tmp_speed = []
+
+            for pos, spe in zip(position, speed):
+                print(pos, spe)
+                depassement = pos+spe-target
+                if depassement*spe == 0:
+                    former = (pos, spe)
+                else:
+                    X = depassement/spe
+                    print("xx", X, depassement)
+                    if X == spe:
+                        """
+                        je depasse de 1 quand je suis en vitesse 2 pour 1 round
+                        --> je roule en vitesse 1
+
+                        spe (miles/hour) * depassement (miles) = X (hour)
+                        X = depassement / spe
+
+                        """
+                        print(former, "is the same speed as", (pos, spe), "which is", X)
+
+                    else:
+                        print("here")
+                        next
+
+
+                    # if (pos+(test*spe)-target)/(spe) == test:
+                    #     print(former, "is the same speed as", (pos, spe), "which is", test)
+
+
+            # for letter in ordering_cars:
+            #     pos, spe = ordering_cars[letter]
+            #     print(pos, spe, "(target-pos):",(target-pos)/spe)
+            #     if pos >= target: target_achieved += 1
+            #     tmp_speed.append(((target-pos)/spe))
+
+            # for i in range(len(pos)):
+            #     elem = pos[i]
+            #     # spe = speed[i]
+            #     if elem >= target:
+            #         target_achieved += 1
+            #     # tmp_speed.append((target-elem))
+            return target_achieved, tmp_speed
 
         def result_one_round(sorted_cars, ordering_cars, round):
             ordering_cars = one_round_passes(sorted_cars, ordering_cars)
@@ -62,22 +101,28 @@ class Solution:
 
             return ordering_cars, pos, speed
 
+
         round = 0
         sorted_cars, ordering_cars = ordering_cars_closer_to_target(position, speed)
-        print(f"round {round}: {position} - {speed}")
-        target_achieved = arrive_at_destination_yet(position, target)
-        # print(target_achieved)
-        round+=1
+        print(f"round {round}: (target = {target}) {position} - {speed}")
+        target_achieved, tmp_speed = arrive_at_destination_yet(target, position, speed)
+        # print("tmp_speed:", tmp_speed)
+        # print("ordering_cars:", ordering_cars)
 
         if len(set(position)) != len(position): car_fleet = len(set(position))
-        else: car_fleet = 0
+        else:
+            car_fleet = 0
 
-        target_tmp = 0
-        while sorted_cars != []:
+        target_tmp = {}
+        c = 0
+        while sorted_cars != [] and round <=10:
             ordering_cars, pos, speed = result_one_round(sorted_cars, ordering_cars, round)
             sorted_cars, ordering_cars = ordering_cars_closer_to_target(pos, speed)
             print(f"round {round}: {pos} - {speed}")
-            target_achieved = arrive_at_destination_yet(pos, target)
+
+            target_achieved, tmp_speed = arrive_at_destination_yet(target, ordering_cars)
+            # print("tmp_speed:", tmp_speed)
+            # print()
             if len(pos) != len(set(pos)):
                 tmp = {}
                 dup = int()
@@ -89,63 +134,81 @@ class Solution:
 
                 tmp_speed = []
                 for letter in tmp[dup]:
+                    print(letter)
                     tmp_speed.append(ordering_cars[letter][1])
 
                 tmp_speed = (sorted(tmp_speed))[0]
+                # print("tmp_speed:", tmp_speed)
 
                 for letter in tmp[dup]:
                     ordering_cars[letter] = (dup, tmp_speed)
 
-            for elem in pos:
-                if elem >= target:
-                    pos.remove(elem)
-                    pos.append(target)
+
+
+            if len(position) != len(set(position)) and len(speed) != len(set(speed)):
+              for elem in sorted_cars:
+                if elem[0] >= target:
+                    # speed_ =
+                    ""
+                    # print(elem)
+                    # print(ordering_cars)
+                    # letter = elem[1]
+                    # sorted_cars.remove(elem)
+                    # sorted_cars.append((target, letter))
 
             to_del = []
             for elem in sorted_cars[::-1]:
-                print(pos)
-                if len(pos) != len(set(pos)):
-                    print(False)
-                    if elem[0] >= target:
-                        sorted_cars.remove(elem)
-                        to_del.append(elem[1])
-                        target_tmp += 1
+                if elem[0] >= target:
+                    sorted_cars.remove(elem)
+                    to_del.append(elem[1])
+                    if round not in target_tmp: target_tmp[round] = [elem]
+                    else: target_tmp[round].append(elem)
 
-                    for elem in to_del:
-                        del ordering_cars[elem]
-                else:
-                    print(True)
-                    return len(set(pos))
+            for elem in to_del:
+                del ordering_cars[elem]
+
             round+=1
 
-        return target_tmp
+
+        for elem in target_tmp:
+            tmp_c = set()
+            for el in target_tmp[elem]:
+                tmp_c.add(el[0])
+            c += len(tmp_c)
+            print(tmp_c, c)
+
+        return c
 
 # # ------------------------
 
 # print(Solution().carFleet(target=100,
 # position=[0,2,4],
 # speed=[4,2,1]))
-# #True should be 1
+# print()
+# # #True should be 1
 
 # print(Solution().carFleet(target = 10, position = [4,1,0,7], speed = [2,2,1,1]))
 # print()
-# #True should be 3
+# # #True should be 3
 
 # print(Solution().carFleet(target = 10, position = [1,4], speed = [3,2]))
 # print()
-# #True should be 1
+# # #True should be 1
 
 # print(f"{Solution().carFleet(target=10,
 # position=[1,4],
 # speed=[3,2])}")
-# #True should be 1
+# print()
+# # #True should be 1
 
-# print(Solution().carFleet(target=20,
-# position=[6,2,17],
-# speed=[3,9,2]))
-#True should be 2
+print(Solution().carFleet(target=20,
+position=[6,2,17],
+speed=[3,9,2]))
+print()
+# #True should be 2
 
-print(Solution().carFleet(target=10,
-position=[8,3,7,4,6,5],
-speed=[4,4,4,4,4,4]))
+# print(Solution().carFleet(target=10,
+# position=[8,3,7,4,6,5],
+# speed=[4,4,4,4,4,4]))
 # #True should be 6
+# print()
