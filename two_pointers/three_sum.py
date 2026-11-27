@@ -13,49 +13,49 @@ class Solution:
             print(i1, end = ": ")
             print(left, right)
 
-            if len(left) >=2:
-                """
-                pair is only in all left
-                """
+            # if len(left) >=2:
+            #     """
+            #     pair is only in all left
+            #     """
 
-                for i2 in range(len(left)-1):
+            #     for i2 in range(len(left)-1):
 
-                    # print("i1",i1, "—", "i2:", i2, end=": ")
-                    num2 = left[i2]
-                    num3 = left[i2+1]
-                    # print("nums:", nums[i1], num2, num3)
-                    if nums[i1] + num2 + num3 == 0 and i1 != i2 and i2!= i2+1 and i1 !=i2+1:
-                        print(True, "left", nums[i1], nums[i2], nums[i2+1])
-                        possibilities_idx.append((i1, i2+i1, i2+i1+1))
-                        sorted_nums = tuple(sorted([nums[i1], num2, num3]))
-                        poss_nums.append(sorted_nums)
+            #         # print("i1",i1, "—", "i2:", i2, end=": ")
+            #         num2 = left[i2]
+            #         num3 = left[i2+1]
+            #         print("nums:", nums[i1], num2, num3)
+            #         if nums[i1] + num2 + num3 == 0 and i1 != i2 and i2!= i2+1 and i1 !=i2+1:
+            #             print(True, "left", nums[i1], nums[i2], nums[i2+1])
+            #             possibilities_idx.append((i1, i2+i1, i2+i1+1))
+            #             sorted_nums = tuple(sorted([nums[i1], num2, num3]))
+            #             poss_nums.append(sorted_nums)
 
-                        if (nums[i1], nums[i2], nums[i2+1]) not in poss_dict:
-                            # print("sorted_nums:",sorted_nums)
-                            poss_dict[sorted_nums] = [(i1, i2, i2+1)]
-                        else: poss_dict[sorted_nums].append((i1, i2, i2+1))
+            #             if (nums[i1], nums[i2], nums[i2+1]) not in poss_dict:
+            #                 # print("sorted_nums:",sorted_nums)
+            #                 poss_dict[sorted_nums] = [(i1, i2, i2+1)]
+            #             else: poss_dict[sorted_nums].append((i1, i2, i2+1))
 
-            if len(right) >= 2:
-                """
-                pair is only in all right
-                """
-                for i2 in range(len(right)-1):
-                    if i2 != i1:
-                        # print("i1",i1, "—", "i2:", i2)
-                        num2 = right[i2]
-                        num3 = right[i2+1]
-                        # print("nums:", nums[i1], num2, num3)
-                        if nums[i1] + num2 + num3 == 0 :
-                            if i1 != i2 and i2!= i2+1 and i1 !=i2+1:
-                                possibilities_idx.append((i1, i2+i1, i2+i1+1))
-                                print(True, "right", nums[i1], nums[i2+i1], nums[i2+i1+1])
-                                sorted_nums = tuple(sorted([nums[i1], num2, num3]))
-                                poss_nums.append(sorted_nums)
+            # if len(right) >= 2:
+            #     """
+            #     pair is only in all right
+            #     """
+            #     for i2 in range(len(right)-1):
+            #         if i2 != i1:
+            #             # print("i1",i1, "—", "i2:", i2)
+            #             num2 = right[i2]
+            #             num3 = right[i2+1]
+            #             print("nums:", nums[i1], num2, num3)
+            #             if nums[i1] + num2 + num3 == 0 :
+            #                 if i1 != i2 and i2!= i2+1 and i1 !=i2+1:
+            #                     possibilities_idx.append((i1, i2+i1, i2+i1+1))
+            #                     print(True, "right", nums[i1], nums[i2+i1], nums[i2+i1+1])
+            #                     sorted_nums = tuple(sorted([nums[i1], num2, num3]))
+            #                     poss_nums.append(sorted_nums)
 
-                                if (nums[i1], nums[i2], nums[i2+1]) not in poss_dict:
-                                    # print("sorted_nums:",sorted_nums)
-                                    poss_dict[sorted_nums] = [(i1, i2+i1, i2+1)]
-                                else: poss_dict[sorted_nums].append((i1, i2+i1, i2+i1+1))
+            #                     if (nums[i1], nums[i2], nums[i2+1]) not in poss_dict:
+            #                         # print("sorted_nums:",sorted_nums)
+            #                         poss_dict[sorted_nums] = [(i1, i2+i1, i2+1)]
+            #                     else: poss_dict[sorted_nums].append((i1, i2+i1, i2+i1+1))
 
             for i2 in range(1, len(left)):
                 if i2 != i1:
@@ -63,6 +63,9 @@ class Solution:
                         """
                         pair is combined in both left and right
                         ⚠️⚠️⚠️ pb is with indexes HERE
+
+                        this should be sufficient bc above i am only checking consecutives
+                        ⚠️ but need to pay more attention to the indexes here
                         """
                         if (left[i2]+nums[i1]+right[i3]) == 0 :
                                 print((True, "both",nums[i1], left[i2], right[i3]), end=": ")
@@ -91,12 +94,12 @@ class Solution:
 
 
 
-# nums = [-1,0,1,2,-1,-4]
+nums = [-1,0,1,2,-1,-4]
 # nums=[0,1,1]
 
 # nums=[3,0,-2,-1,1,2]
 # nums=[-1,0,1,2,-1,-4,-2,-3,3,0,4]
-nums=[-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]
+# nums=[-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]
 
 
 
