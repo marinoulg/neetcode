@@ -11,13 +11,35 @@ class Solution:
         for elem in numbers[::-1]:
             does_exist = target - elem
             if does_exist in numbers:
-                possibles.append((elem, does_exist))
+                possibles.append(tuple(sorted([elem, does_exist])))
             else:
                 numbers.remove(elem)
 
-        possibles = (possibles[0]) # bc always 1 possible solution
-        # print(possibles)
-        return sorted([keep_track_idx[elem][0] for elem in possibles])
+        # print(set(possibles))
+        def length_is_1(possibles):
+            left = list(set(possibles))[0][0]
+            right = list(set(possibles))[0][1]
+            # print(left, right)
+
+            res = []
+            res.append((keep_track_idx[left][0], keep_track_idx[right][0]))
+            return list(res[0])
+
+        if len(set(possibles)) == 1:
+            res = length_is_1(possibles)
+            return res
+        else:
+            for elem in possibles:
+                a,b = elem
+                if a == b:
+                    possibles.remove(elem)
+            # print(possibles)
+
+        if len(set(possibles)) == 1:
+            res = length_is_1(possibles)
+            return res
+
+        # return sorted([keep_track_idx[elem] for elem in possibles[0]])
 
 # numbers=[2,3,4]
 # target=6
@@ -34,3 +56,11 @@ class Solution:
 # numbers=[-10,-5,0,3,7]
 # target=-2
 # print(Solution().twoSum(numbers = numbers, target = target))
+
+# numbers=[1,1,3,4]
+# target=2
+# print(Solution().twoSum(numbers = numbers, target = target))
+
+numbers=[10,20,30,45,50]
+target=60
+print(Solution().twoSum(numbers = numbers, target = target))
