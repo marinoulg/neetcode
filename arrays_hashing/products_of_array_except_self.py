@@ -13,32 +13,40 @@ class Solution:
             idx = (list(new.values()))
             print(idx)
 
-            res = {}
+
             if len(nums)%2==0:
                 print("pair:", len(nums))
 
                 if len(nums) == 2:
                     res = [nums[1], nums[0]]
                 else:
+                    res = {}
+                    for i in range(len(nums)):
+                        res[i] = 1
+
                     for i in range(len(nums)):
                         if i+1 < len(nums):
-                            res[i] = idx[i+1]
+                            res[i] *= idx[i+1]
+                            if len(nums) > 4:
+                                if i+3 < len(nums):
+                                    res[i] *= idx[i+3]
+                                else:
+                                    res[i] *= idx[0]
+                                if len(nums) > 6:
+                                    if i+5 < len(nums):
+                                        res[i] *= idx[i+5]
+                                    else:
+                                        res[i] *= idx[0]
+
                         else:
                             res[i] = idx[0]
+                            if len(nums) > 4: res[i] *= idx[2]
+                            if len(nums) > 6: res[i] *= idx[2]
                     print(res)
 
                     for i in range(len(nums)):
                             res[i] *= nums[i-1]
                     print(list(res.values()))
-
-
-                # elif len(nums) == 4:
-                #     one = idx[1] * nums[-1]
-                #     two = idx[2] * nums[0]
-                #     three = idx[3] * nums[1]
-                #     four = idx[0] * nums[2]
-                #     res = [one, two, three, four]
-                #     print(res)
 
                 # elif len(nums) == 6:
                 #     one = idx[1] * idx[3] * nums[-1]
@@ -140,48 +148,9 @@ def not_effective(nums):
     print(neww)
     return neww
 
-# nums=[2,2,0,1]
+nums=[2,2,0,1]
+# nums = [1, 2, 3, 4, 5, 6]
+
 # nums = [1,2,4,6]
-nums=[2,4,-2,1,2,-1,4,1,3,-3,-1,2,1,2,1,-3,1,-1,1,3,3,-2,-2,3,-3,-1,1,-2,-4,-2]
+# nums=[2,4,-2,1,2,-1,4,1,3,-3,-1,2,1,2,1,-3,1,-1,1,3,3,-2,-2,3,-3,-1,1,-2,-4,-2]
 Solution().productExceptSelf(nums)
-# not_effective(nums)
-# print("solution")
-# print(Solution().productExceptSelf(nums))
-
-# nums = [1,2,4,6,5]
-# for i in range(len(nums)):
-#     prefix = nums[:i]
-#     suffix = nums[i+1:]
-#     print(prefix, suffix, end=": ")
-
-#     if 0 in prefix or 0 in suffix:
-#         print(0)
-#     # elif 1 in prefix: prefix.remove(1)
-#     # elif 1 in suffix: suffix.remove(1)
-#     else: print()
-
-
-
-
-    # tmp = 1
-    # if prefix == []:
-    #     for i in range(len(suffix)-2):
-    #         elem = suffix[i]
-    #         next_elem = suffix[i+1]
-    #         tmp *= elem * next_elem
-    #         i += 2
-    #         print(tmp)
-    # elif suffix == []:
-    #     for i in range(len(prefix)-2):
-    #         elem = prefix[i]
-    #         next_elem = prefix[i+1]
-    #         tmp = elem * next_elem
-    #         i += 2
-    #         print(tmp)
-    # else:
-    #     print()
-    #     next
-
-
-    # for pre in zip(prefis
-    #     if len(prefix
