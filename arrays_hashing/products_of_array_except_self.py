@@ -7,51 +7,41 @@ class Solution:
                 res[iteration] *= idx[iteration+adding_num]
             else:
                 res[iteration] *= idx[(iteration+adding_num) - len(nums)]
-            # print(f"{adding_num} - {iteration}: {list(res.values())}")
             return res
 
         def determine_sign_of_common_nums(nums, length_nums, res):
             middle = int(length_nums/2)
-            # print("nums:", nums)
-            # print(middle)
             left = nums[:middle]
             right = nums[middle:]
 
             c = 0
             for elem in left:
-                if elem == -x:
-                    c += 1
+                if elem == -x: c += 1
             for elem in right:
-                if elem == -x:
-                    c += 1
-            if c%2==0:
-                res[middle] = 1*x
-            else:
-                res[middle] = -1*x
+                if elem == -x: c += 1
+            if c%2==0: res[middle] = 1 * x
+            else: res[middle] = -1 * x
 
             for i in range(len(left)):
                 elem = left[i]
-                if elem == -x:
-                    res[i] = res[middle]*-x
-                else: res[i] = res[middle]*x
+                if elem == -x: res[i] = res[middle] * -x
+                else: res[i] = res[middle] * x
 
             for j in range(middle, middle+len(right)):
                 elem = nums[j]
-                if elem == -x:
-                    res[j] = res[middle]*-x
-                else: res[j] = res[middle]*x
+                if elem == -x: res[j] = res[middle] * -x
+                else: res[j] = res[middle] * x
             return (list(res.values())), c, res[middle]
 
         new = {}
         length_nums = len(nums)
         for idx in range(length_nums-1):
-            new[idx] = (nums[idx]*nums[idx+1])
+            new[idx] = (nums[idx] * nums[idx+1])
 
-        new[length_nums] = (nums[0]*nums[-1])
+        new[length_nums] = (nums[0] * nums[-1])
         idx = (list(new.values()))
         # print("nums:", nums)
         # print("idx:", idx)
-        # print()
 
         res = {}
         for i in range(length_nums):
@@ -67,31 +57,34 @@ class Solution:
                 return res
 
             elif length_nums%2 == 0:
+                """
+                problem is here
+                """
+
                 nums_bis = (nums[:-1])
                 res, c, res_middle = determine_sign_of_common_nums(nums_bis, length_nums-1, res)
                 for i in range(len(res)-1):
                     res[i] *= nums[-1]
 
                 # print(res_middle)
-
+                """
+                more specifically, possibly here
+                """
                 if c%2==0: res[len(res)-1] = x * res_middle
                 elif c%2!=0: res[len(res)-1] = -x * res_middle
                 return res
 
         elif length_nums%2==0:
-            # print("pair:", length_nums)
             adding_num = 1
             while adding_num < length_nums-1:
-                for iter in range(length_nums): # iter = 4
+                for iter in range(length_nums):
                     res = len_nums(nums, res, iteration=iter, idx=idx, adding_num=adding_num)
                 adding_num += 2
 
-            # print("last step")
             for i in range(length_nums):
-                res[i] *= nums[i-1] # 4
+                res[i] *= nums[i-1]
 
         else:
-            # print("impair:", length_nums)
             adding_num = 1
             while adding_num < length_nums-1:
                 for iter in range(length_nums):
