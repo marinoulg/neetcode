@@ -8,38 +8,41 @@ class Solution:
                 keep_track_idx[numbers[idx]] = [idx+1]
             else: keep_track_idx[numbers[idx]].append(idx+1)
 
-        i = -1
-        elem = numbers[i]
-        try:
-            while elem >= target:
-                numbers.pop(i)
-                elem = numbers[i]
-        except IndexError:
-            ""
+        # i = -1
+        # elem = numbers[i]
+        # try:
+        #     while elem >= target:
+        #         numbers.pop(i)
+        #         elem = numbers[i]
+        # except IndexError:
+        #     ""
             # print(elem, i)
-
-        print(keep_track_idx)
+        # print(numbers)
+        # print(keep_track_idx)
 
         possibles = []
-        for i in range(len(keep_track_idx)-1):
-            left = list(keep_track_idx.keys())[i]
-            right = list(keep_track_idx.keys())[i+1]
-            if left + right == target:
-                possibles.append((keep_track_idx[left][0], keep_track_idx[right][0]))
+        for elem in numbers:
+            does_exist = target - elem
+            if does_exist in numbers:
+                possibles.append((elem, does_exist))
+            else:
+                numbers.remove(elem)
 
-        left, right = list(keep_track_idx.keys())[0], list(keep_track_idx.keys())[-1]
-        if left + right == target:
-                possibles.append((keep_track_idx[left][0], keep_track_idx[right][0]))
-
-        return list(possibles[0])
+        possibles = (possibles[0]) # bc always 1 possible solution
+        # print(possibles)
+        return sorted([keep_track_idx[elem][0] for elem in possibles])
 
 
-# print(Solution().twoSum(numbers = [1,2,3,4], target = 3))
+print(Solution().twoSum(numbers = [1,2,3,4], target = 3))
 
-# numbers=[2,3,4]
-# target=6
-# print(Solution().twoSum(numbers = numbers, target = target))
+numbers=[2,3,4]
+target=6
+print(Solution().twoSum(numbers = numbers, target = target))
 
 numbers=[-1,0]
 target=-1
+print(Solution().twoSum(numbers = numbers, target = target))
+
+numbers=[-5,-3,0,2,4,6,8]
+target=5
 print(Solution().twoSum(numbers = numbers, target = target))
