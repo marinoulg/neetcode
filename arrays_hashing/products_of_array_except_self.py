@@ -2,7 +2,7 @@ from math import prod
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
-        def about_len_nums(nums, res, iteration, idx, adding_num):
+        def even_len_nums(nums, res, iteration, idx, adding_num):
             if iteration+adding_num < len(nums):
                 res[iteration] *= idx[iteration+adding_num]
             else:
@@ -11,88 +11,103 @@ class Solution:
             print(f"{adding_num} - {iteration}: {list(res.values())}")
             return res
 
-        def test(nums):
-            # print(len(nums))
-            # print(nums)
-            new = {}
-            for idx in range(len(nums)-1):
-                new[idx] = (nums[idx]*nums[idx+1])
+        new = {}
+        for idx in range(len(nums)-1):
+            new[idx] = (nums[idx]*nums[idx+1])
 
-            new[len(nums)] = (nums[0]*nums[-1])
-            idx = (list(new.values()))
-            print("nums:", nums)
-            print("idx:", idx)
+        new[len(nums)] = (nums[0]*nums[-1])
+        idx = (list(new.values()))
+        print("nums:", nums)
+        print("idx:", idx)
+        print()
+
+        res = {}
+        def odd_len_nums(nums, res, iteration, idx, adding_num):
+            if iteration+adding_num < len(nums):
+                res[iteration] *= idx[iteration+adding_num]
+            else:
+                res[iteration] *= idx[(iteration+adding_num) - len(nums)]
+            # if iteration == 4:
+            print(f"{adding_num} - {iteration}: {list(res.values())}")
+            return res
+
+        if len(nums)%2==0:
+            print("pair:", len(nums))
 
             res = {}
-            if len(nums)%2==0:
-                print("pair:", len(nums))
+            for i in range(len(nums)):
+                res[i] = 1
 
-                if len(nums) == 2:
-                    res = [nums[1], nums[0]]
-                else:
-                    res = {}
-                    for i in range(len(nums)):
-                        res[i] = 1
+            adding_num = 1
+            while adding_num < len(nums)-1:
+                for iter in range(len(nums)): # iter = 4
+                    res = even_len_nums(nums, res, iteration=iter, idx=idx, adding_num=adding_num)
+                adding_num += 2
+                # print(res)
 
-                    adding_num = 1
-                    while adding_num < len(nums)-1:
-                        for iter in range(len(nums)): # iter = 4
-                            res = about_len_nums(nums, res, iteration=iter, idx=idx, adding_num=adding_num)
-                        adding_num += 2
-                        # print(res)
+            print("last step")
+            for i in range(len(nums)):
+                res[i] *= nums[i-1] # 4
+            # print(f"{adding_num}: {list(res.values())}")
 
-                    print("last step")
-                    for i in range(len(nums)):
-                        res[i] *= nums[i-1] # 4
-                    print(f"{adding_num}: {list(res.values())}")
+            return (list(res.values()))
+        else:
 
-
-                    return (list(res.values()))
-
-            else:
                 print("impair:", len(nums))
 
-                if len(nums) == 1:
-                    res = 1
+            # if len(nums) < 2:
+            #     res = 1
+            # else:
+                res = {}
+                for i in range(len(nums)):
+                    res[i] = 1
 
-                elif len(nums) == 3:
-                    one = idx[1]
-                    two = idx[2]
-                    three = idx[0]
-                    res = [one, two, three]
+                for i in range(len(nums)):
+                    if i+1 < 3:
+                        res[i] *= idx[i+1]
+                    else:
+                        res[i] *= idx[0]
+                    print(list(res.values()))
 
-                elif len(nums) == 5:
-                    one = idx[1] * idx[3]
-                    two = idx[2] * idx[4]
-                    three = idx[3] * idx[0]
-                    four = idx[4] * idx[1]
-                    five = idx[0] * idx[2]
-                    res = [one, two, three, four, five]
 
-                elif len(nums) == 7:
-                    one = idx[1] * idx[3] * idx[5]
-                    two = idx[2] * idx[4] * idx[6]
-                    three = idx[3] * idx[5] * idx[0]
-                    four = idx[4] * idx[6] * idx[1]
-                    five = idx[5] * idx[0] * idx[2]
-                    six = idx[6] * idx[1] * idx[3]
-                    seven = idx[0] * idx[2] * idx[4]
-                    res = [one, two, three, four, five, six, seven]
+            # elif len(nums) == 3:
+            #     one = idx[1]
+            #     two = idx[2]
+            #     three = idx[0]
+            #     res = [one, two, three]
 
-                elif len(nums) == 9:
-                    one = idx[1] * idx[3] * idx[5] * idx[7]
-                    two = idx[2] * idx[4] * idx[6] * idx[8]
-                    three = idx[3] * idx[5] * idx[7] * idx[0]
-                    four = idx[4] * idx[6] * idx[8] * idx[1]
-                    five = idx[5] * idx[7] * idx[0] * idx[2]
-                    six = idx[6] * idx[8] * idx[1] * idx[3]
-                    seven = idx[7] * idx[0] * idx[2] * idx[4]
-                    eight = idx[8] * idx[1] * idx[3] * idx[5]
-                    nine = idx[0] * idx[2] * idx[4] * idx[6]
-                    res = [one, two, three, four, five, six, seven, eight, nine]
+            # elif len(nums) == 5:
+            #     one = idx[1] * idx[3]
+            #     two = idx[2] * idx[4]
+            #     three = idx[3] * idx[0]
+            #     four = idx[4] * idx[1]
+            #     five = idx[0] * idx[2]
+            #     res = [one, two, three, four, five]
 
-            return (res)
-        return test(nums)
+            # elif len(nums) == 7:
+            #     one = idx[1] * idx[3] * idx[5]
+            #     two = idx[2] * idx[4] * idx[6]
+            #     three = idx[3] * idx[5] * idx[0]
+            #     four = idx[4] * idx[6] * idx[1]
+            #     five = idx[5] * idx[0] * idx[2]
+            #     six = idx[6] * idx[1] * idx[3]
+            #     seven = idx[0] * idx[2] * idx[4]
+            #     res = [one, two, three, four, five, six, seven]
+
+            # elif len(nums) == 9:
+            #     one = idx[1] * idx[3] * idx[5] * idx[7]
+            #     two = idx[2] * idx[4] * idx[6] * idx[8]
+            #     three = idx[3] * idx[5] * idx[7] * idx[0]
+            #     four = idx[4] * idx[6] * idx[8] * idx[1]
+            #     five = idx[5] * idx[7] * idx[0] * idx[2]
+            #     six = idx[6] * idx[8] * idx[1] * idx[3]
+            #     seven = idx[7] * idx[0] * idx[2] * idx[4]
+            #     eight = idx[8] * idx[1] * idx[3] * idx[5]
+            #     nine = idx[0] * idx[2] * idx[4] * idx[6]
+            #     res = [one, two, three, four, five, six, seven, eight, nine]
+        print()
+        return (list(res.values()))
+
 
 def not_effective(nums):
     print(len(nums))
@@ -118,7 +133,7 @@ def not_effective(nums):
 
 # nums=[2,2,0,1]
 # nums = [1,2,4,6]
-nums = [1,2,3,4,5,6]
+nums = [1,2,3]
 # nums = [1,2,3,4,5,6,7,8,9,10]
 # nums=[2,4,-2,1,2,-1,4,1,3,-3,-1,2,1,2,1,-3,1,-1,1,3,3,-2,-2,3,-3,-1,1,-2,-4,-2]
 print(Solution().productExceptSelf(nums))
