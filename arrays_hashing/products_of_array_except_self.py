@@ -50,29 +50,29 @@ class Solution:
         set_nums = set(nums)
         list_nums_set = list(set(nums))
 
-        # x = list_nums_set[0] # using this condition to determine the sign of each new number
-        # if len(set_nums) == 2 and sorted(list_nums_set) == [-x,x] and length_nums > 2:
-        #     if length_nums%2 != 0:
-        #         res, c, res_middle = determine_sign_of_common_nums(nums, length_nums, res)
-        #         return res
+        x = list_nums_set[0] # using this condition to determine the sign of each new number
+        if len(set_nums) == 2 and sorted(list_nums_set) == [-x,x] and length_nums > 2:
+            if length_nums%2 != 0:
+                res, c, res_middle = determine_sign_of_common_nums(nums, length_nums, res)
+                return res
 
-        #     elif length_nums%2 == 0:
-        #         """
-        #         problem is here
-        #         """
+            elif length_nums%2 == 0:
+                """
+                problem is here
+                """
 
-        #         nums_bis = (nums[:-1])
-        #         res, c, res_middle = determine_sign_of_common_nums(nums_bis, length_nums-1, res)
-        #         for i in range(len(res)-1):
-        #             res[i] *= nums[-1]
+                nums_bis = (nums[:-1])
+                res, c, res_middle = determine_sign_of_common_nums(nums_bis, length_nums-1, res)
+                for i in range(len(res)-1):
+                    res[i] *= nums[-1]
 
-        #         # print(res_middle)
-        #         """
-        #         more specifically, possibly here
-        #         """
-        #         if c%2==0: res[len(res)-1] = x * res_middle
-        #         elif c%2!=0: res[len(res)-1] = -x * res_middle
-        #         return res
+                # print(res_middle)
+                """
+                more specifically, possibly here
+                """
+                if c%2==0: res[len(res)-1] = x * res_middle
+                elif c%2!=0: res[len(res)-1] = -x * res_middle
+                return res
 
         if length_nums%2==0:
             adding_num = 1
