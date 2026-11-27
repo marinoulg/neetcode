@@ -2,6 +2,15 @@ from math import prod
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
+        def about_len_nums(nums, res, iteration, idx, adding_num):
+            if iteration+adding_num < len(nums):
+                res[iteration] *= idx[iteration+adding_num]
+            else:
+                res[iteration] *= idx[(iteration+adding_num) - len(nums)]
+            # if iteration == 4:
+            print(f"{adding_num} - {iteration}: {list(res.values())}")
+            return res
+
         def test(nums):
             # print(len(nums))
             # print(nums)
@@ -11,7 +20,8 @@ class Solution:
 
             new[len(nums)] = (nums[0]*nums[-1])
             idx = (list(new.values()))
-            print(idx)
+            print("nums:", nums)
+            print("idx:", idx)
 
             res = {}
             if len(nums)%2==0:
@@ -20,77 +30,24 @@ class Solution:
                 if len(nums) == 2:
                     res = [nums[1], nums[0]]
                 else:
-
                     res = {}
                     for i in range(len(nums)):
                         res[i] = 1
 
+                    adding_num = 1
+                    while adding_num < len(nums)-1:
+                        for iter in range(len(nums)): # iter = 4
+                            res = about_len_nums(nums, res, iteration=iter, idx=idx, adding_num=adding_num)
+                        adding_num += 2
+                        # print(res)
+
+                    print("last step")
                     for i in range(len(nums)):
-                        if i+1 < len(nums):
-                            res[i] *= idx[i+1]
-                            if len(nums) > 4:
-                                if i+3 < len(nums):
-                                    res[i] *= idx[i+3]
-                                else:
-                                    res[i] *= idx[len(nums) - (i+3)]
-                                if len(nums) > 6:
-                                    if i+5 < len(nums):
-                                        res[i] *= idx[i+5]
-                                    else:
-                                        res[i] *= idx[len(nums) - (i+3)]
-
-                        else:
-                            res[i] *= idx[0]
-                            if len(nums) > 4: res[i] *= idx[2]
-                            if len(nums) > 6: res[i] *= idx[2]
-
-                    print(list(res.values()))
-                    for i in range(len(nums)):
-                        res[i] *= nums[i-1]
-
-                    print(list(res.values()))
+                        res[i] *= nums[i-1] # 4
+                    print(f"{adding_num}: {list(res.values())}")
 
 
-                # elif len(nums) == 4:
-                #     one = idx[1] * nums[-1]
-                #     two = idx[2] * nums[0]
-                #     three = idx[3] * nums[1]
-                #     four = idx[0] * nums[2]
-                #     res = [one, two, three, four]
-                #     print(res)
-
-                # elif len(nums) == 6:
-                #     one = idx[1] * idx[3] * nums[-1]
-                #     two = idx[2] * idx[4] * nums[0]
-                #     three = idx[3] * idx[5] * nums[1]
-                #     four = idx[4] * idx[0] * nums[2]
-                #     five = idx[5] * idx[1] * nums[3]
-                #     six = idx[0] * idx[2] * nums[4]
-                #     res = [one, two, three, four, five, six]
-
-                # elif len(nums) == 8:
-                #     one = idx[1] * idx[3] * idx[5] * nums[-1]
-                #     two = idx[2] * idx[4] * idx[6] * nums[0]
-                #     three = idx[3] * idx[5] * idx[7] * nums[1]
-                #     four = idx[4] * idx[6] * idx[0] * nums[2]
-                #     five = idx[5] * idx[7] * idx[1] * nums[3]
-                #     six = idx[6] * idx[0] * idx[2] * nums[4]
-                #     seven = idx[7] * idx[1] * idx[3] * nums[5]
-                #     eight = idx[0] * idx[2] * idx[4] * nums[6]
-                #     res = [one, two, three, four, five, six, seven, eight]
-
-                # elif len(nums) == 10:
-                #     one = idx[1] * idx[3] * idx[5] * idx[7] * nums[-1]
-                #     two = idx[2] * idx[4] * idx[6] * idx[8] * nums[0]
-                #     three = idx[3] * idx[5] * idx[7] * idx[9] * nums[1]
-                #     four = idx[4] * idx[6] * idx[8] * idx[0] * nums[2]
-                #     five = idx[5] * idx[7] * idx[9] * idx[1] * nums[3]
-                #     six = idx[6] * idx[8] * idx[0] * idx[2] * nums[4]
-                #     seven = idx[7] * idx[9] * idx[1] * idx[3] * nums[5]
-                #     eight = idx[8] * idx[0] * idx[2] * idx[4] * nums[6]
-                #     nine = idx[9] * idx[1] * idx[3] * idx[5] * nums[7]
-                #     ten = idx[0] * idx[2] * idx[4] * idx[6] * nums[8]
-                #     res = [one, two, three, four, five, six, seven, eight, nine, ten]
+                    return (list(res.values()))
 
             else:
                 print("impair:", len(nums))
@@ -160,9 +117,11 @@ def not_effective(nums):
     return neww
 
 # nums=[2,2,0,1]
-nums = [1,2,3,4,5,6,7,8]
+# nums = [1,2,4,6]
+nums = [1,2,3,4,5,6]
+# nums = [1,2,3,4,5,6,7,8,9,10]
 # nums=[2,4,-2,1,2,-1,4,1,3,-3,-1,2,1,2,1,-3,1,-1,1,3,3,-2,-2,3,-3,-1,1,-2,-4,-2]
-Solution().productExceptSelf(nums)
+print(Solution().productExceptSelf(nums))
 # not_effective(nums)
 # print("solution")
 # print(Solution().productExceptSelf(nums))
