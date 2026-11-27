@@ -1,4 +1,4 @@
-from string import ascii_lowercase
+from string import ascii_uppercase
 
 class Solution:
     def carFleet(self, target: int, position: list[int], speed: list[int]) -> int:
@@ -25,7 +25,7 @@ class Solution:
 
         def ordering_cars_closer_to_target(position, speed):
             ordering_cars = {}
-            for pos, spe, letter in zip(position, speed, ascii_lowercase):
+            for pos, spe, letter in zip(position, speed, ascii_uppercase):
                 if letter not in ordering_cars: ordering_cars[letter] = (pos, spe)
                 if letter+letter in ordering_cars: ordering_cars[letter+letter] = (pos, spe)
                 if letter+letter in ordering_cars: ordering_cars[letter+letter+letter] = (pos, spe)
@@ -44,7 +44,6 @@ class Solution:
         def one_round_passes(sorted_cars, ordering_cars):
             for pos, letter in sorted_cars:
                 ordering_cars[letter] = (ordering_cars[letter][0] + ordering_cars[letter][1], ordering_cars[letter][1])
-
             return ordering_cars
 
         def arrive_at_destination_yet(pos, target):
@@ -53,29 +52,6 @@ class Solution:
                 if elem >= target:
                     target_achieved += 1
             return target_achieved
-
-            for pos, spe in zip(position, speed):
-                print(pos, spe)
-                depassement = pos+spe-target
-                if depassement*spe == 0:
-                    former = (pos, spe)
-                else:
-                    X = depassement/spe
-                    print("xx", X, depassement)
-                    if X == spe:
-                        """
-                        je depasse de 1 quand je suis en vitesse 2 pour 1 round
-                        --> je roule en vitesse 1
-
-                        spe (miles/hour) * depassement (miles) = X (hour)
-                        X = depassement / spe
-
-                        """
-                        print(former, "is the same speed as", (pos, spe), "which is", X)
-
-                    else:
-                        print("here")
-                        next
 
         def result_one_round(sorted_cars, ordering_cars, round):
             ordering_cars = one_round_passes(sorted_cars, ordering_cars)
@@ -94,18 +70,17 @@ class Solution:
         # print("ordering_cars:", ordering_cars)
 
         if len(set(position)) != len(position): car_fleet = len(set(position))
-        else:
-            car_fleet = 0
+        else: car_fleet = 0
 
         target_tmp = {}
         c = 0
         while sorted_cars != [] and round <=10:
+            round+= 1
             ordering_cars, pos, speed = result_one_round(sorted_cars, ordering_cars, round)
             sorted_cars, ordering_cars = ordering_cars_closer_to_target(pos, speed)
             print(f"round {round}: {pos} - {speed}")
 
             target_achieved = arrive_at_destination_yet(pos, target)
-            # print("tmp_speed:", tmp_speed)
             # print()
             if len(pos) != len(set(pos)):
                 tmp = {}
@@ -118,7 +93,7 @@ class Solution:
 
                 tmp_speed = []
                 for letter in tmp[dup]:
-                    print(letter)
+                    # print(letter)
                     tmp_speed.append(ordering_cars[letter][1])
 
                 tmp_speed = (sorted(tmp_speed))[0]
@@ -127,23 +102,12 @@ class Solution:
                 for letter in tmp[dup]:
                     ordering_cars[letter] = (dup, tmp_speed)
 
-
-
-            if len(position) != len(set(position)) and len(speed) != len(set(speed)):
-              for elem in sorted_cars:
-                if elem[0] >= target:
-                    # speed_ =
-                    ""
-                    # print(elem)
-                    # print(ordering_cars)
-                    # letter = elem[1]
-                    # sorted_cars.remove(elem)
-                    # sorted_cars.append((target, letter))
-
             to_del = []
             for elem in sorted_cars[::-1]:
                 if elem[0] >= target:
                     sorted_cars.remove(elem)
+                    num, letter = (elem)
+                    print(f"Car {letter} has arrived.")
                     to_del.append(elem[1])
                     if round not in target_tmp: target_tmp[round] = [elem]
                     else: target_tmp[round].append(elem)
@@ -151,15 +115,14 @@ class Solution:
             for elem in to_del:
                 del ordering_cars[elem]
 
-            round+=1
-
-
         for elem in target_tmp:
             tmp_c = set()
             for el in target_tmp[elem]:
                 tmp_c.add(el[0])
             c += len(tmp_c)
-            print(tmp_c, c)
+            # print(tmp_c, c)
+
+        print(f"There were {c} fleets overall.")
 
         return c
 
