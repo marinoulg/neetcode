@@ -10,7 +10,6 @@ class Solution:
         # 2. Check (max) width
         max_width = len(heights)
         print("max_width:", max_width)
-        print("--"*10)
 
         # 3. Check (max) rectangle
             # by checking each column inidividually against the next one (in both sides)
@@ -97,6 +96,7 @@ class Solution:
         tmp_res.append(max_height)
         tmp_res.append(max_width)
         # print(tmp_res)
+        print("--"*10)
 
         return max(tmp_res)
         # print(try_for_1_mini(heights, 2))
@@ -104,8 +104,8 @@ class Solution:
 
 
 
-# print(Solution().largestRectangleArea(heights = [7,1,7,2,2,4])) # expect 8
-# print()
+print(Solution().largestRectangleArea(heights = [7,1,7,2,2,4])) # expect 8
+print()
 print(Solution().largestRectangleArea(heights = [1,3,7])) # expect 7 -- True10
-print("\n"+"*"*30)
+print()
 print(Solution().largestRectangleArea(heights=[2,1,5,6,2,3])) # expect 10 -- True
