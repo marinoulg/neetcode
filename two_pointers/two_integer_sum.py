@@ -10,9 +10,12 @@ class Solution:
 
         i = -1
         elem = numbers[i]
-        while elem >= target:
-            numbers.pop(i)
-            elem = numbers[i]
+        try:
+            while elem >= target:
+                numbers.pop(i)
+                elem = numbers[i]
+        except IndexError:
+            ""
             # print(elem, i)
 
         print(keep_track_idx)
@@ -33,7 +36,10 @@ class Solution:
 
 # print(Solution().twoSum(numbers = [1,2,3,4], target = 3))
 
-numbers=[2,3,4]
-target=6
+# numbers=[2,3,4]
+# target=6
+# print(Solution().twoSum(numbers = numbers, target = target))
 
+numbers=[-1,0]
+target=-1
 print(Solution().twoSum(numbers = numbers, target = target))
