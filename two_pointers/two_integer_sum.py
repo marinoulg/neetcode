@@ -4,14 +4,14 @@ class Solution:
         indexes = []
         for i in range(len(numbers))[::-1]:
             elem = numbers[i]
-            print(elem)
+            # print(elem)
             if elem > target:
                 numbers.pop(i)
             elif elem == target and 0 not in numbers:
                 numbers.pop(i)
             else:
                 indexes.append(i+1)
-        print(numbers)
+        # print(numbers)
         return sorted(indexes)
 
 
