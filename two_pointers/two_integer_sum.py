@@ -15,14 +15,16 @@ class Solution:
             else:
                 numbers.remove(elem)
 
-        # print(set(possibles))
+        print(set(possibles))
         def length_is_1(possibles):
             left = list(set(possibles))[0][0]
             right = list(set(possibles))[0][1]
             # print(left, right)
 
             res = []
-            res.append((keep_track_idx[left][0], keep_track_idx[right][0]))
+            print((keep_track_idx))
+            if left != right: res.append((keep_track_idx[left][0], keep_track_idx[right][0]))
+            else: res.append((keep_track_idx[left][0], keep_track_idx[right][1]))
             return list(res[0])
 
         if len(set(possibles)) == 1:
@@ -57,10 +59,10 @@ class Solution:
 # target=-2
 # print(Solution().twoSum(numbers = numbers, target = target))
 
-# numbers=[1,1,3,4]
-# target=2
-# print(Solution().twoSum(numbers = numbers, target = target))
-
-numbers=[10,20,30,45,50]
-target=60
+numbers=[1,1,3,4]
+target=2
 print(Solution().twoSum(numbers = numbers, target = target))
+
+# numbers=[10,20,30,45,50]
+# target=60
+# print(Solution().twoSum(numbers = numbers, target = target))
